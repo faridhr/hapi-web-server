@@ -3,37 +3,51 @@ const routes = [
       method: 'GET',
       path: '/',
       handler: (request, h) => {
-         return 'Homepage'
+         return 'Home Page'
       }
    },
    {
       method: '*',
       path: '/',
       handler: (request, h) => {
-         return 'Halaman tidak dapat diakses dengan method tersebut'
+         return 'Oops... method tidak diijinkan'
+      }
+   },
+   {
+      method: 'GET',
+      path: '/about',
+      handler: (request, h) => {
+         return 'About Page'
+      }
+   },
+   {
+      method: '*',
+      path: '/about',
+      handler: (request, h) => {
+         return 'Oops... method tidak diijinkan'
+      }
+   },
+   {
+      method: 'GET',
+      path: '/hello/{name?}',
+      handler: (request, h) => {
+         const {name = 'stranger'} = request.params;
+         const {lang} = request.query;
+
+         if (lang == 'id') {
+            return `Hai, ${name}`
+         }
+
+         return `Hello, ${name}!`;
+      }
+   },
+   {
+      method: '*',
+      path: '/{any*}',
+      handler: (request, h) => {
+         return 'Halaman tidak ditemukan'
       }
    }
-   // {
-   //    method: 'GET',
-   //    path: '/about',
-   //    handler: (request, h) => {
-   //       return 'About Page'
-   //    }
-   // },
-   // {
-   //    method: '*',
-   //    path: '/about',
-   //    handler: (request, h) => {
-   //       return 'Halaman tidak dapat diakses dengan method tersebut'
-   //    }
-   // },
-   // {
-   //    method: '*',
-   //    path: '/{any*}',
-   //    handler : (request, h) => {
-   //       return 'Halaman tidak ditemukan'
-   //    }
-   // }
-];
+]
 
-module.export = routes;
+module.exports = routes;
